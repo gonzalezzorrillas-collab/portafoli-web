@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Santiago G Web – Diseño Web Profesional</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #060810;
+      --bg2: #0a0d1a;
+      --card: #0f1220;
+      --blue: #4f8ef7;
+      --blue2: #7eb3ff;
+      --purple: #7c3aed;
+      --purple2: #a855f7;
+      --cyan: #06d6f5;
+      --text: #f0f4ff;
+      --muted: #6b7a99;
+      --border: #1a2035;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 3rem;
+      background: rgba(6,8,16,0.95);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--blue), var(--purple2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 1px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--blue); }
+
+    .nav-cta {
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      color: #fff !important;
+      padding: 0.5rem 1.4rem;
+      border-radius: 6px;
+      box-shadow: 0 0 20px rgba(79,142,247,0.3);
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 50% at 50% 40%, rgba(79,142,247,0.1) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 20% 80%, rgba(124,58,237,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 30% at 80% 20%, rgba(6,214,245,0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .code-bg {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      opacity: 0.03;
+      pointer-events: none;
+      font-family: monospace;
+      font-size: 0.75rem;
+      color: var(--blue);
+      line-height: 1.8;
+      padding: 2rem;
+      word-break: break-all;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(79,142,247,0.1);
+      border: 1px solid rgba(79,142,247,0.3);
+      color: var(--blue2);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 0.5rem 1.2rem;
+      border-radius: 50px;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.2s forwards;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--cyan);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--cyan);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.5rem, 8vw, 6.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.4s forwards;
+    }
+
+    .hero h1 .line1 { color: var(--text); display: block; }
+    .hero h1 .line2 {
+      background: linear-gradient(135deg, var(--blue), var(--purple2), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: block;
+    }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--muted);
+      margin-top: 1.5rem;
+      max-width: 550px;
+      line-height: 1.9;
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.6s forwards;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.8s forwards;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      color: #fff;
+      padding: 1rem 2.5rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      letter-spacing: 1px;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 24px rgba(79,142,247,0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(79,142,247,0.5);
+    }
+
+    .btn-outline {
+      border: 1.5px solid var(--border);
+      color: var(--text);
+      padding: 1rem 2.5rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      letter-spacing: 1px;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .btn-outline:hover { border-color: var(--blue); color: var(--blue); }
+
+    .hero-stats {
+      display: flex;
+      gap: 3rem;
+      margin-top: 5rem;
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      animation: fadeUp 0.7s 1s forwards;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .stat { text-align: center; }
+
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .stat-label {
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 0.3rem;
+    }
+
+    /* TICKER */
+    .ticker {
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--blue), var(--purple), var(--cyan));
+      padding: 0.7rem 0;
+    }
+
+    .ticker-inner {
+      display: flex;
+      gap: 2rem;
+      animation: ticker 20s linear infinite;
+      white-space: nowrap;
+      width: max-content;
+    }
+
+    .ticker-inner span {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 3px;
+      color: rgba(255,255,255,0.9);
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* SERVICES */
+    .section {
+      padding: 7rem 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-top { margin-bottom: 3.5rem; }
+
+    .section-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .section-tag::before {
+      content: '';
+      width: 30px; height: 1px;
+      background: linear-gradient(135deg, var(--blue), transparent);
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .section-title span {
+      background: linear-gradient(135deg, var(--blue), var(--purple2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .service-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(135deg, var(--blue), var(--purple2));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(79,142,247,0.12);
+      border-color: rgba(79,142,247,0.3);
+    }
+
+    .service-card:hover::before { opacity: 1; }
+
+    .service-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1.2rem;
+      display: block;
+    }
+
+    .service-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+    }
+
+    .service-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .service-price {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* PORTFOLIO */
+    .portfolio-section {
+      background: var(--bg2);
+      padding: 7rem 3rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .portfolio-inner { max-width: 1200px; margin: 0 auto; }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .portfolio-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    }
+
+    .portfolio-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(79,142,247,0.15);
+      border-color: rgba(79,142,247,0.4);
+    }
+
+    .portfolio-img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .portfolio-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0; left: 0;
+    }
+
+    .portfolio-tag {
+      position: absolute;
+      top: 12px; left: 12px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      color: #fff;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 0.3rem 0.8rem;
+      border-radius: 4px;
+    }
+
+    .portfolio-info { padding: 1.4rem; }
+
+    .portfolio-cat {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 0.4rem;
+    }
+
+    .portfolio-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .portfolio-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 1.2rem;
+    }
+
+    .portfolio-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--blue);
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      letter-spacing: 1px;
+      transition: color 0.2s, gap 0.2s;
+    }
+
+    .portfolio-link:hover { color: var(--cyan); gap: 0.8rem; }
+
+    /* PROCESS */
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .process-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.8rem;
+      position: relative;
+    }
+
+    .process-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, rgba(79,142,247,0.2), rgba(124,58,237,0.2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1;
+      margin-bottom: 0.8rem;
+    }
+
+    .process-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .process-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* CONTACT */
+    .contact-section {
+      padding: 7rem 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .contact-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 4rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-box::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(135deg, var(--blue), var(--purple2), var(--cyan));
+    }
+
+    .contact-left h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .contact-left h2 span {
+      background: linear-gradient(135deg, var(--blue), var(--purple2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .contact-left p {
+      color: var(--muted);
+      line-height: 1.9;
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+    }
+
+    .contact-details { display: flex; flex-direction: column; gap: 1rem; }
+
+    .contact-detail {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.88rem;
+      color: var(--text);
+    }
+
+    .contact-detail .icon {
+      width: 38px; height: 38px;
+      background: rgba(79,142,247,0.1);
+      border: 1px solid rgba(79,142,247,0.2);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .contact-right { display: flex; flex-direction: column; gap: 1rem; }
+
+    .whatsapp-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      background: #25d366;
+      color: #fff;
+      padding: 1.1rem 2rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.25);
+    }
+
+    .whatsapp-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(37,211,102,0.4);
+    }
+
+    .order-note {
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--muted);
+      letter-spacing: 1px;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #030408;
+      border-top: 1px solid var(--border);
+      padding: 2rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--blue), var(--purple2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .footer-copy { color: var(--muted); font-size: 0.75rem; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(25px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .section { padding: 4rem 1.5rem; }
+      .portfolio-section { padding: 4rem 1.5rem; }
+      .contact-section { padding: 4rem 1.5rem; }
+      .contact-box { grid-template-columns: 1fr; gap: 2rem; padding: 2rem; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">Santiago G Web</div>
+    <ul class="nav-links">
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#portafolio">Portafolio</a></li>
+      <li><a href="#proceso">Proceso</a></li>
+      <li><a href="#contacto" class="nav-cta">Contratar 🚀</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div id="inicio" class="hero">
+    <div class="code-bg">
+      &lt;html&gt;&lt;head&gt;&lt;title&gt;Santiago G Web&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;div class="hero"&gt;&lt;h1&gt;Diseño Web Profesional&lt;/h1&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt; function createWebsite() { return { design: 'modern', code: 'clean', result: 'amazing' } } const web = new Website({ name: 'SantiagoGWeb', style: 'professional', tech: ['HTML', 'CSS', 'JS'] })
+    </div>
+    <div class="hero-badge">💻 Disponible para proyectos</div>
+    <h1>
+      <span class="line1">Páginas web que</span>
+      <span class="line2">venden por ti</span>
+    </h1>
+    <p class="hero-desc">Creo páginas web profesionales para negocios locales. Diseño moderno, entrega rápida y precios accesibles para que tu negocio brille en internet.</p>
+    <div class="hero-btns">
+      <a href="#contacto" class="btn-primary">🚀 Solicitar página web</a>
+      <a href="#portafolio" class="btn-outline">Ver Portafolio</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">6+</div>
+        <div class="stat-label">Proyectos creados</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">1-3</div>
+        <div class="stat-label">Días de entrega</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Diseño a medida</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TICKER -->
+  <div class="ticker">
+    <div class="ticker-inner">
+      <span>SANTIAGO G WEB</span><span> 💻 </span>
+      <span>DISEÑO WEB PROFESIONAL</span><span> 🚀 </span>
+      <span>PÁGINAS PARA NEGOCIOS</span><span> ✦ </span>
+      <span>ENTREGA EN 1-3 DÍAS</span><span> ⚡ </span>
+      <span>COLOMBIA</span><span> 💻 </span>
+      <span>SANTIAGO G WEB</span><span> 💻 </span>
+      <span>DISEÑO WEB PROFESIONAL</span><span> 🚀 </span>
+      <span>PÁGINAS PARA NEGOCIOS</span><span> ✦ </span>
+      <span>ENTREGA EN 1-3 DÍAS</span><span> ⚡ </span>
+      <span>COLOMBIA</span><span> 💻 </span>
+    </div>
+  </div>
+
+  <!-- SERVICIOS -->
+  <div id="servicios" class="section">
+    <div class="section-top">
+      <div class="section-tag">Lo que ofrezco</div>
+      <h2 class="section-title">Mis <span>Servicios</span></h2>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-icon">🍽️</span>
+        <p class="service-name">Menú Digital</p>
+        <p class="service-desc">Página web para restaurantes con fotos de platos, menú digital y botón de WhatsApp para recibir pedidos sin pagar comisión.</p>
+        <p class="service-price">Desde $350.000 COP</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🛍️</span>
+        <p class="service-name">Tienda Online</p>
+        <p class="service-desc">Catálogo digital para tiendas de ropa, zapatos y más. Fotos de productos, precios y botón para comprar por WhatsApp.</p>
+        <p class="service-price">Desde $350.000 COP</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">✂️</span>
+        <p class="service-name">Página para Servicios</p>
+        <p class="service-desc">Para barberías, salones de belleza, spas y más. Muestra tus servicios, precios y agenda citas por WhatsApp.</p>
+        <p class="service-price">Desde $350.000 COP</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🏢</span>
+        <p class="service-name">Página Empresarial</p>
+        <p class="service-desc">Presencia digital profesional para empresas y negocios. Diseño moderno, información de servicios y contacto directo.</p>
+        <p class="service-price">Desde $350.000 COP</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PORTAFOLIO -->
+  <div id="portafolio" class="portfolio-section">
+    <div class="portfolio-inner">
+      <div class="section-top">
+        <div class="section-tag">Mis trabajos</div>
+        <h2 class="section-title">Portafolio <span>de Proyectos</span></h2>
+      </div>
+      <div class="portfolio-grid">
+        <div class="portfolio-card">
+          <div class="portfolio-img hela">
+            <img src="imagenes/portafolio-aifrut.jpg" alt="Aifrut" />
+            <div class="portfolio-tag">Heladería</div>
+          </div>
+          <div class="portfolio-info">
+            <p class="portfolio-cat">Heladería</p>
+            <p class="portfolio-name">Aifrut Santiago G</p>
+            <p class="portfolio-desc">Página colorida y moderna con sabores, galería y pedidos por WhatsApp.</p>
+            <a href="https://aifrut.netlify.app/" target="_blank" class="portfolio-link">Ver proyecto →</a>
+          </div>
+        </div>
+        <div class="portfolio-card">
+          <div class="portfolio-img alas">
+            <img src="imagenes/portafolio-tabu.jpg" alt="TABU" />
+            <div class="portfolio-tag">Comidas Rápidas</div>
+          </div>
+          <div class="portfolio-info">
+            <p class="portfolio-cat">Comidas Rápidas</p>
+            <p class="portfolio-name">TABU Santiago G</p>
+            <p class="portfolio-desc">Página oscura y moderna con menú de comidas rápidas y botón de WhatsApp.</p>
+            <a href="https://tabu-sgz.netlify.app/" target="_blank" class="portfolio-link">Ver proyecto →</a>
+          </div>
+        </div>
+        <div class="portfolio-card">
+          <div class="portfolio-img rest">
+            <img src="imagenes/portafolio-alitas.jpg" alt="Alitas y Sabores" />
+            <div class="portfolio-tag">Restaurante</div>
+          </div>
+          <div class="portfolio-info">
+            <p class="portfolio-cat">Comidas Rápidas</p>
+            <p class="portfolio-name">Alitas y Sabores</p>
+            <p class="portfolio-desc">Página oscura con menú de alitas, galería y botón de WhatsApp.</p>
+            <a href="https://alitas-sg.netlify.app/" target="_blank" class="portfolio-link">Ver proyecto →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROCESO -->
+  <div id="proceso" class="section">
+    <div class="section-top">
+      <div class="section-tag">Cómo trabajo</div>
+      <h2 class="section-title">El <span>Proceso</span></h2>
+    </div>
+    <div class="process-grid">
+      <div class="process-card">
+        <div class="process-num">01</div>
+        <p class="process-name">Me contactas</p>
+        <p class="process-desc">Escríbeme por WhatsApp y cuéntame sobre tu negocio y lo que necesitas.</p>
+      </div>
+      <div class="process-card">
+        <div class="process-num">02</div>
+        <p class="process-name">Demo gratis</p>
+        <p class="process-desc">Te creo una demo personalizada con el nombre de tu negocio. Sin compromiso.</p>
+      </div>
+      <div class="process-card">
+        <div class="process-num">03</div>
+        <p class="process-name">Pago y diseño</p>
+        <p class="process-desc">Una vez aprobada la demo, realizas el pago y personalizo la página con tu información.</p>
+      </div>
+      <div class="process-card">
+        <div class="process-num">04</div>
+        <p class="process-name">Entrega en 1-3 días</p>
+        <p class="process-desc">Recibes el enlace de tu página lista para compartir con tus clientes.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACTO -->
+  <div id="contacto" class="contact-section">
+    <div class="contact-box">
+      <div class="contact-left">
+        <div class="section-tag">Hablemos</div>
+        <h2>¿Listo para <span>tu página web?</span></h2>
+        <p>Escríbeme por WhatsApp y en menos de 24 horas te envío una demo personalizada con el nombre de tu negocio. Sin compromiso.</p>
+        <div class="contact-details">
+          <div class="contact-detail">
+            <div class="icon">📍</div>
+            <span>Jamundí, Valle del Cauca</span>
+          </div>
+          <div class="contact-detail">
+            <div class="icon">⚡</div>
+            <span>Entrega en 1 a 3 días</span>
+          </div>
+          <div class="contact-detail">
+            <div class="icon">💰</div>
+            <span>Desde $350.000 COP</span>
+          </div>
+          <div class="contact-detail">
+            <div class="icon">✅</div>
+            <span>Demo gratis sin compromiso</span>
+          </div>
+        </div>
+      </div>
+      <div class="contact-right">
+        <a href="https://wa.me/573177019064" class="whatsapp-btn">
+          💬 Escribir por WhatsApp
+        </a>
+        <p class="order-note">Respuesta inmediata · Demo gratis</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Santiago G Web</div>
+    <div class="footer-copy">© 2025 Santiago G Web. Jamundí, Colombia.</div>
+  </footer>
+
+</body>
+</html>
